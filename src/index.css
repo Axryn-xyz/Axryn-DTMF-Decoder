@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Syncopate:wght@400;700&display=swap');
+
+:root {
+  /* Brutalist Color Palette */
+  --bg-color: #f4f4f0;
+  --text-color: #111111;
+  --accent-red: #ff3333;
+  --accent-blue: #3333ff;
+  --accent-yellow: #ffcc00;
+
+  /* Typography */
+  --font-mono: 'Space Mono', monospace;
+  --font-display: 'Syncopate', sans-serif;
+
+  /* Borders & Shadows */
+  --border-thick: 4px solid var(--text-color);
+  --border-thin: 2px solid var(--text-color);
+  --shadow-solid: 8px 8px 0px 0px var(--text-color);
+  --shadow-solid-hover: 12px 12px 0px 0px var(--text-color);
+  --shadow-solid-active: 4px 4px 0px 0px var(--text-color);
+
+  /* Sticky Note Text */
+  --note-text-color: #111111;
+
+  --grid-color: rgba(17, 17, 17, 0.05);
+}
+
+[data-theme="dark"] {
+  --bg-color: #111111;
+  --text-color: #f4f4f0;
+  --accent-red: #ff3333;
+  --accent-blue: #3333ff;
+  --accent-yellow: #ffcc00;
+  --grid-color: rgba(244, 244, 240, 0.05);
+  --note-text-color: #111111;
+  --border-thick: 4px solid var(--text-color);
+  --border-thin: 2px solid var(--text-color);
+  --shadow-solid: 8px 8px 0px 0px var(--text-color);
+  --shadow-solid-hover: 12px 12px 0px 0px var(--text-color);
+  --shadow-solid-active: 4px 4px 0px 0px var(--text-color);
+}
+
+[data-theme="hacker"] {
+  --bg-color: #050505;
+  --text-color: #00ff00;
+  --accent-red: #ff00ff;
+  --accent-blue: #00ffff;
+  --accent-yellow: #00ff00;
+  --grid-color: rgba(0, 255, 0, 0.1);
+  --note-text-color: #050505;
+  --border-thick: 4px solid var(--text-color);
+  --border-thin: 2px solid var(--text-color);
+  --shadow-solid: 8px 8px 0px 0px var(--text-color);
+  --shadow-solid-hover: 12px 12px 0px 0px var(--text-color);
+  --shadow-solid-active: 4px 4px 0px 0px var(--text-color);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  /* Grid pattern + Noise */
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 40px 40px, 40px 40px, 200px 200px;
+  background-position: center center;
+}
+
+/* CRT Scanlines Overlay */
+body::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+  z-index: 9999;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+h1 {
+  text-shadow: 4px 4px 0px var(--accent-red);
+}
+
+button {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-solid);
+  transition: all 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover noise/glitch strip on buttons */
+button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-20deg);
+  transition: all 0.4s ease;
+}
+
+button:hover::after {
+  left: 150%;
+}
+
+button:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: var(--shadow-solid-hover);
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+button:active {
+  transform: translate(4px, 4px);
+  box-shadow: var(--shadow-solid-active);
+}
+
+.brutalist-container {
+  border: var(--border-thick);
+  box-shadow: var(--shadow-solid);
+  background-color: var(--bg-color);
+  padding: 2rem;
+}
+
+.brutalist-text {
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 25vw, 20rem);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--text-color);
+  -webkit-text-stroke: 4px var(--text-color);
+  text-shadow:
+    8px 8px 0px var(--accent-red),
+    -4px -4px 0px var(--accent-blue);
+  animation: jitter 3s infinite;
+}
+
+@keyframes jitter {
+  0% {
+    transform: translate(0) skew(0deg);
+  }
+
+  20% {
+    transform: translate(-2px, 2px) skew(-1deg);
+  }
+
+  21% {
+    transform: translate(2px, -2px) skew(1deg);
+  }
+
+  22% {
+    transform: translate(0) skew(0deg);
+  }
+
+  80% {
+    transform: translate(0) skew(0deg);
+  }
+
+  81% {
+    transform: translate(2px, 2px) skew(0.5deg);
+  }
+
+  82% {
+    transform: translate(0) skew(0deg);
+  }
+
+  100% {
+    transform: translate(0) skew(0deg);
+  }
+}
+
+.sticky-note {
+  background-color: var(--accent-yellow);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-solid);
+  padding: 1.5rem;
+  min-height: 150px;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.sticky-note:hover {
+  border-color: var(--accent-red);
+}
+
+.sticky-note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-bottom: var(--border-thin);
+  border-bottom-color: var(--text-color);
+}
+
+.sticky-note.blue {
+  background-color: var(--accent-blue);
+  color: var(--note-text-color);
+}
+
+.sticky-note p {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  word-break: break-all;
+  text-align: center;
+  color: var(--note-text-color);
+  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
